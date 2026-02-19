@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QRforge &mdash; Encode Anything</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"/>
+</head>
+<body>
+
+<!-- Ghost QR background decoration -->
+<svg class="qr-ghost" width="480" height="480" viewBox="0 0 33 33" fill="white" aria-hidden="true">
+  <rect x="0" y="0" width="7" height="7"/><rect x="2" y="2" width="3" height="3" fill="#0a0a0a"/>
+  <rect x="9" y="0" width="1" height="1"/><rect x="11" y="0" width="2" height="1"/>
+  <rect x="14" y="0" width="1" height="1"/><rect x="26" y="0" width="7" height="7"/>
+  <rect x="28" y="2" width="3" height="3" fill="#0a0a0a"/>
+  <rect x="0" y="9" width="1" height="1"/><rect x="3" y="9" width="3" height="1"/>
+  <rect x="9" y="9" width="3" height="3"/><rect x="14" y="9" width="2" height="1"/>
+  <rect x="0" y="26" width="7" height="7"/><rect x="2" y="28" width="3" height="3" fill="#0a0a0a"/>
+  <rect x="9" y="26" width="3" height="3"/><rect x="14" y="26" width="2" height="2"/>
+  <rect x="18" y="26" width="1" height="1"/><rect x="22" y="26" width="2" height="2"/>
+  <rect x="26" y="26" width="2" height="1"/><rect x="30" y="26" width="1" height="2"/>
+</svg>
+
+<div class="page">
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="logo">QR<span>FORGE</span></div>
+    <div class="badge-row">
+      <div class="tag lit">Free</div>
+      <div class="tag">v2.0</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main class="hero">
+    <p class="eyebrow fi">Encode anything. Instantly.</p>
+
+    <h1 class="hero-title fi">
+      MAKE<br>
+      YOUR<br>
+      <span class="accent">QR</span> <span class="outline">CODE</span>
+    </h1>
+
+    <p class="hero-desc fi">
+      URLs, plain text, Wi-Fi credentials, contact cards &mdash;
+      <em>all generated server-side.</em>
+      No third-party trackers, no data stored, no watermarks.
+    </p>
+
+    <div class="cta-wrap fi">
+      <a class="btn-cta" href="/generator">
+        START FORGING
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <div class="cta-note">
+        <span>&#10003;</span>No sign-up<br>
+        <span>&#10003;</span>No watermarks<br>
+        <span>&#10003;</span>100% free
+      </div>
+    </div>
+  </main>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <div class="ticker-item"><b>01</b>URL Encoding</div>
+      <div class="ticker-item"><b>02</b>Plain Text</div>
+      <div class="ticker-item"><b>03</b>Wi-Fi Credentials</div>
+      <div class="ticker-item"><b>04</b>Contact Cards (vCard)</div>
+      <div class="ticker-item"><b>05</b>Custom Colors</div>
+      <div class="ticker-item"><b>06</b>PNG Download</div>
+      <div class="ticker-item"><b>07</b>Error Correction Levels</div>
+      <div class="ticker-item"><b>08</b>Server-Side &mdash; Python + Pillow</div>
+      <div class="ticker-item"><b>01</b>URL Encoding</div>
+      <div class="ticker-item"><b>02</b>Plain Text</div>
+      <div class="ticker-item"><b>03</b>Wi-Fi Credentials</div>
+      <div class="ticker-item"><b>04</b>Contact Cards (vCard)</div>
+      <div class="ticker-item"><b>05</b>Custom Colors</div>
+      <div class="ticker-item"><b>06</b>PNG Download</div>
+      <div class="ticker-item"><b>07</b>Error Correction Levels</div>
+      <div class="ticker-item"><b>08</b>Server-Side &mdash; Python + Pillow</div>
+    </div>
+  </div>
+
+  <!-- FEATURE STRIP -->
+  <div class="feature-strip">
+    <div class="feature-cell">
+      <div class="feature-num">01</div>
+      <div class="feature-title">4 Input Modes</div>
+      <div class="feature-desc">URL, text, Wi-Fi, and vCard contact formats all supported.</div>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">02</div>
+      <div class="feature-title">Custom Style</div>
+      <div class="feature-desc">Pick any foreground and background color combination.</div>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">03</div>
+      <div class="feature-title">Server-Side</div>
+      <div class="feature-desc">App handles all rendering. Zero client-side QR libs.</div>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">04</div>
+      <div class="feature-title">Instant PNG</div>
+      <div class="feature-desc">Download or copy to clipboard in one click, no fuss.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="logo">QR<span>FORGE</span></div>
+        <div class="footer-tagline">Open-source QR generator</div>
+      </div>
+
+      <div class="footer-links">
+        <a class="footer-link" href="https://github.com/yourusername/qrforge" target="_blank" rel="noopener">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          View Source on GitHub
+        </a>
+        <a class="footer-link" href="/generator">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          Open Generator
+        </a>
+      </div>
+
+      <a class="footer-coffee" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/>
+        </svg>
+        Buy me a coffee
+      </a>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 QRforge &mdash; Coi~Coded</span>
+      
+    </div>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QRforge &mdash; Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/generator.css') }}"/>
+</head>
+<body>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a class="back-btn" href="/">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Back to Home
+  </a>
+  <div class="logo">QR<span>FORGE</span></div>
+  <div style="width:120px"></div>
+</div>
+
+<div class="container py-4">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="label">// Generator</p>
+    <h1>FORGE A QR CODE</h1>
+  </div>
+
+  <div class="row g-3">
+
+    <!-- LEFT: CONTROLS -->
+    <div class="col-lg-7">
+      <div class="forge-card">
+        <div class="forge-card-header">
+          <div class="dot on"></div><div class="dot"></div><div class="dot"></div>
+          <span>INPUT.CONFIG</span>
+        </div>
+        <div class="forge-card-body">
+
+          <div class="mode-tabs">
+            <div class="mode-tab active" data-tab="url">URL</div>
+            <div class="mode-tab" data-tab="text">Text</div>
+            <div class="mode-tab" data-tab="wifi">Wi-Fi</div>
+            <div class="mode-tab" data-tab="vcard">Contact</div>
+          </div>
+
+          <!-- URL -->
+          <div class="tab-panel active" id="panel-url">
+            <label class="forge-label" for="input-url">Target URL</label>
+            <input class="forge-input" id="input-url" type="url" placeholder="https://your-link.com"/>
+          </div>
+
+          <!-- TEXT -->
+          <div class="tab-panel" id="panel-text">
+            <label class="forge-label" for="input-text">Raw Text</label>
+            <textarea class="forge-textarea" id="input-text" placeholder="Enter any text up to 500 characters&hellip;" maxlength="500"></textarea>
+            <div class="char-count" id="char-count">0 / 500</div>
+          </div>
+
+          <!-- WIFI -->
+          <div class="tab-panel" id="panel-wifi">
+            <div class="row g-2">
+              <div class="col-12">
+                <label class="forge-label">Network Name (SSID)</label>
+                <input class="forge-input" id="wifi-ssid" type="text" placeholder="YourNetworkName"/>
+              </div>
+              <div class="col-8">
+                <label class="forge-label">Password</label>
+                <input class="forge-input" id="wifi-pass" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"/>
+              </div>
+              <div class="col-4">
+                <label class="forge-label">Security</label>
+                <select class="forge-select" id="wifi-enc">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="">None</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- VCARD -->
+          <div class="tab-panel" id="panel-vcard">
+            <div class="row g-2">
+              <div class="col-6">
+                <label class="forge-label">First Name</label>
+                <input class="forge-input" id="vc-first" type="text" placeholder="John"/>
+              </div>
+              <div class="col-6">
+                <label class="forge-label">Last Name</label>
+                <input class="forge-input" id="vc-last" type="text" placeholder="Doe"/>
+              </div>
+              <div class="col-12">
+                <label class="forge-label">Phone</label>
+                <input class="forge-input" id="vc-phone" type="tel" placeholder="+1 555 000 0000"/>
+              </div>
+              <div class="col-12">
+                <label class="forge-label">Email</label>
+                <input class="forge-input" id="vc-email" type="email" placeholder="john@example.com"/>
+              </div>
+              <div class="col-12">
+                <label class="forge-label">Website</label>
+                <input class="forge-input" id="vc-url" type="url" placeholder="https://johndoe.com"/>
+              </div>
+            </div>
+          </div>
+
+          <hr class="rule">
+          <p class="forge-label mb-3" style="font-size:0.6rem; color: var(--muted)">// STYLE OPTIONS</p>
+
+          <div class="row g-3">
+            <div class="col-6">
+              <label class="forge-label">QR Color</label>
+              <div class="color-row">
+                <div class="color-swatch"><input type="color" id="qr-color" value="#000000"/></div>
+                <input class="forge-input" id="qr-color-hex" value="#000000" maxlength="7" style="flex:1"/>
+              </div>
+            </div>
+            <div class="col-6">
+              <label class="forge-label">Background</label>
+              <div class="color-row">
+                <div class="color-swatch"><input type="color" id="bg-color" value="#ffffff"/></div>
+                <input class="forge-input" id="bg-color-hex" value="#ffffff" maxlength="7" style="flex:1"/>
+              </div>
+            </div>
+            <div class="col-6">
+              <label class="forge-label">Error Correction</label>
+              <select class="forge-select" id="ec-level">
+                <option value="L">L &mdash; Low (7%)</option>
+                <option value="M" selected>M &mdash; Medium (15%)</option>
+                <option value="Q">Q &mdash; Quartile (25%)</option>
+                <option value="H">H &mdash; High (30%)</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label class="forge-label">Module Size</label>
+              <div class="range-row">
+                <input type="range" class="forge-range" id="qr-size" min="4" max="20" step="2" value="10" style="flex:1"/>
+                <span class="range-val" id="size-val">10</span>
+              </div>
+            </div>
+            <div class="col-6">
+              <label class="forge-label">Margin (modules)</label>
+              <div class="range-row">
+                <input type="range" class="forge-range" id="qr-margin" min="0" max="10" step="1" value="4" style="flex:1"/>
+                <span class="range-val" id="margin-val">4</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="rule">
+
+          <button class="btn-forge" id="generate-btn">
+            <span class="btn-label">GENERATE</span>
+            <div class="btn-spinner"></div>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="col-lg-5">
+      <div class="forge-card" style="height:100%">
+        <div class="forge-card-header">
+          <div class="dot"></div><div class="dot"></div><div class="dot on"></div>
+          <span>OUTPUT.PNG</span>
+        </div>
+        <div class="forge-card-body output-wrap">
+
+          <div id="output-placeholder">
+            <div class="qr-placeholder">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/>
+                <rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/>
+                <rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/>
+                <path d="M14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z" fill="currentColor" stroke="none"/>
+              </svg>
+              <p class="qr-placeholder-text">Awaiting input</p>
+            </div>
+          </div>
+
+          <div id="qr-result">
+            <img id="qr-img" src="" alt="Generated QR Code"/>
+            <div class="qr-meta">
+              <div class="qr-meta-label">Encoded Data</div>
+              <div class="qr-meta-val" id="qr-meta-str"></div>
+            </div>
+            <div class="action-btns">
+              <button class="btn-action" id="dl-btn">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download PNG
+              </button>
+              <button class="btn-action" id="copy-btn">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                Copy
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="stats-row mt-3">
+        <div class="stat-cell">
+          <div class="stat-num" id="stat-size">&mdash;</div>
+          <div class="stat-label">Module size</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num" id="stat-chars">&mdash;</div>
+          <div class="stat-label">Characters</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num" id="stat-ec">&mdash;</div>
+          <div class="stat-label">Error corr.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 1rem"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="logo">QR<span>FORGE</span></div>
+        <div class="footer-tagline">Open-source QR generator &mdash; Flask + Python</div>
+      </div>
+
+      <div class="footer-links">
+        <a class="footer-link" href="https://github.com/yourusername/qrforge" target="_blank" rel="noopener">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          View Source on GitHub
+        </a>
+        <a class="footer-link" href="/">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back to Home
+        </a>
+      </div>
+
+      <a class="footer-coffee" href="https://www.buymeacoffee.com/yourusername" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/>
+        </svg>
+        Buy me a coffee
+      </a>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 QRforge &mdash; Coi~Coded</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/generator.js') }}"></script>
+</body>
+</html>

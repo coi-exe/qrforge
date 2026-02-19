@@ -1,0 +1,125 @@
+/* ── GRID BACKGROUND ──────────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── LAYOUT ───────────────────────────────────────────────────────────────── */
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto auto;
+}
+
+/* ── TOP BAR ──────────────────────────────────────────────────────────────── */
+.top-bar {
+  padding: 1.5rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.top-bar .logo { font-size: 1.5rem; }
+
+/* ── HERO ─────────────────────────────────────────────────────────────────── */
+.hero {
+  display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center;
+  padding: 5rem 2.5rem;
+  max-width: 860px;
+}
+
+.eyebrow {
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  line-height: 0.88; letter-spacing: 0.03em;
+  margin-bottom: 2.5rem;
+}
+.hero-title .accent  { color: var(--accent); }
+.hero-title .outline { -webkit-text-stroke: 1px #333; color: transparent; }
+
+.hero-desc {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  color: var(--muted); font-weight: 300; line-height: 1.75;
+  max-width: 460px; margin-bottom: 3rem;
+}
+.hero-desc em { font-style: italic; color: #5a5a5a; }
+
+/* ── CTA ──────────────────────────────────────────────────────────────────── */
+.cta-wrap { display: flex; align-items: center; gap: 2.5rem; }
+
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--accent); color: #0a0a0a;
+  font-family: var(--display); font-size: 1.5rem;
+  letter-spacing: 0.08em; padding: 16px 36px;
+  border-radius: 2px; text-decoration: none;
+  transition: opacity 0.2s, gap 0.25s;
+}
+.btn-cta:hover { opacity: 0.85; gap: 22px; color: #0a0a0a; }
+.btn-cta svg { transition: transform 0.25s; }
+.btn-cta:hover svg { transform: translateX(4px); }
+
+.cta-note {
+  font-family: var(--mono); font-size: 0.62rem;
+  color: var(--muted); letter-spacing: 0.12em;
+  text-transform: uppercase; line-height: 2;
+}
+.cta-note span { color: var(--accent); margin-right: 6px; }
+
+/* ── FEATURE STRIP ────────────────────────────────────────────────────────── */
+.feature-strip {
+  border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+
+.feature-cell {
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  transition: background 0.2s;
+}
+.feature-cell:last-child { border-right: none; }
+.feature-cell:hover { background: var(--surface); }
+
+.feature-num {
+  font-family: var(--display); font-size: 2.2rem;
+  color: var(--border); margin-bottom: 0.8rem; line-height: 1;
+  transition: color 0.2s;
+}
+.feature-cell:hover .feature-num { color: var(--accent); }
+
+.feature-title {
+  font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 5px;
+}
+.feature-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+/* ── GHOST QR DECORATION ──────────────────────────────────────────────────── */
+.qr-ghost {
+  position: fixed; right: 3vw; top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.03; pointer-events: none; z-index: 0;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .feature-strip { grid-template-columns: repeat(2, 1fr); }
+  .hero { padding: 3rem 1.5rem; }
+  .top-bar { padding: 1.2rem 1.5rem; }
+  .cta-wrap { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+}
